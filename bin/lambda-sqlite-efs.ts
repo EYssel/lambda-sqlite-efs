@@ -13,7 +13,7 @@ const getBranchSuffix = (branchName: string) => {
 const app = new cdk.App();
 new LambdaSqliteEfsStack(
     app,
-    `LambdaSqliteEfsStack + ${getBranchSuffix(GIT_BRANCH)}`,
+    `LambdaSqliteEfsStack${getBranchSuffix(GIT_BRANCH)}`,
     {
         /* If you don't specify 'env', this stack will be environment-agnostic.
          * Account/Region-dependent features and context lookups will not work,
