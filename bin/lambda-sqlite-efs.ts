@@ -7,7 +7,7 @@ const process = require("process");
 const GIT_BRANCH = process.env.GIT_BRANCH;
 
 const getBranchSuffix = (branchName: string) => {
-    return branchName !== `master` ? `-${branchName.replace("/", "_")}` : "";
+    return branchName !== `master` ? `-${branchName || "".replace("/", "_")}` : "";
 };
 
 const app = new cdk.App();
