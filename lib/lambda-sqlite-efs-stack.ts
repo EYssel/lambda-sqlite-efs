@@ -44,12 +44,22 @@ export class LambdaSqliteEfsStack extends cdk.Stack {
             ),
             environment: {
                 EFS_PATH: EFS_PATH,
+                EFS_DB_PATH: EFS_PATH + "/lambda-prisma.db",
             },
             handler: "index.handler",
             runtime: lambda.Runtime.NODEJS_20_X,
-            entry: path.join(__dirname, "../lib/lambda/index.ts"),
+            entry: path.join(__dirname, "../../api/index.ts"),
             bundling: {
-                nodeModules: ["better-sqlite3", "cjs-loader", "bindings"],
+                nodeModules: ["prisma", "@prisma/client"],
+                commandHooks: {
+                    beforeInstall: (i, o) => [
+                        // Copy prisma directory to Lambda code asset
+                        // the directory must be placed on the same directory as your Lambda code
+                        `cp -r ${i}/prisma ${o}`,
+                    ],
+                    beforeBundling: () => [],
+                    afterBundling: () => [],
+                },
             },
         });
     }
