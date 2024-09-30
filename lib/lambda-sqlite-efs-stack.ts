@@ -48,7 +48,7 @@ export class LambdaSqliteEfsStack extends cdk.Stack {
             },
             handler: "index.handler",
             runtime: lambda.Runtime.NODEJS_20_X,
-            entry: path.join(__dirname, "../../api/index.ts"),
+            entry: path.join(__dirname, "../api/index.ts"),
             bundling: {
                 nodeModules: ["prisma", "@prisma/client"],
                 commandHooks: {
