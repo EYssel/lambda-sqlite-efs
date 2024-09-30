@@ -2,7 +2,7 @@ name: Deploy API
 on:
   push:
     branches:
-      - "master"
+      - "*"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -28,6 +28,11 @@ jobs:
           aws-region: eu-west-1
       - name: Check out repository code
         uses: actions/checkout@v3
+      
+      - name: Extract branch name
+        shell: bash
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        id: extract_branch
 
       - name: Install dependencies
         run: |
@@ -42,3 +47,4 @@ jobs:
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_ACCOUNT_NUMBER: ${{ secrets.AWS_ACCOUNT_NUMBER }}
+          GIT_BRANCH: ${{ steps.extract_branch.outputs.branch }}

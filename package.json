@@ -11,21 +11,25 @@
     "cdk": "cdk"
   },
   "devDependencies": {
-    "@types/better-sqlite3": "^7.6.11",
+    "@types/aws-lambda": "^8.10.145",
     "@types/jest": "^29.5.12",
     "@types/node": "20.11.19",
     "aws-cdk": "2.131.0",
     "jest": "^29.7.0",
+    "prisma": "^5.20.0",
+    "prisma-class-validator-generator": "^5.0.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "~5.3.3"
   },
   "dependencies": {
+    "@prisma/client": "^5.20.0",
     "aws-cdk-lib": "2.131.0",
-    "better-sqlite3": "^11.3.0",
-    "bindings": "^1.5.0",
-    "cjs-loader": "^0.1.0",
+    "aws-lambda": "^1.0.7",
     "constructs": "^10.0.0",
     "source-map-support": "^0.5.21"
+  },
+  "prisma": {
+    "schema": "./api/prisma/schema.prisma"
   }
 }
