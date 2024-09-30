@@ -50,6 +50,7 @@ export class LambdaSqliteEfsStack extends cdk.Stack {
             runtime: lambda.Runtime.NODEJS_20_X,
             entry: path.join(__dirname, "../api/index.ts"),
             bundling: {
+                esbuildVersion: "0.21",
                 nodeModules: ["prisma", "@prisma/client"],
                 commandHooks: {
                     beforeInstall: (i, o) => [
