@@ -1,37 +1,17 @@
-import Database = require("better-sqlite3");
-const EFS_PATH = process.env.EFS_PATH;
+import bootstrap from "./bootstrap";
+import { ApiContext, ApiEvent, Route } from "./common/types";
+import { userRoute } from "./user";
+import { usersRoute } from "./users";
 
-const db = new Database(EFS_PATH + "/lambda-efs.db", {});
+const { db } = bootstrap();
 
-export const handler = async (event: any) => {
-    console.log(JSON.stringify({ event }));
+export const handler = async (event: ApiEvent, ctx: ApiContext) => {
+    ctx.db = db;
 
-    bootstrap();
-
-    createUser(event.name, event.age);
-
-    const users = getUsers();
-
-    console.log(JSON.stringify({ users }));
+    routeHandlers[event.route](event.data, ctx);
 };
 
-function bootstrap() {
-    console.log("Bootstrapping function");
-    setupDB();
-}
-
-function setupDB() {
-    console.log("Setting up DB");
-
-    db.prepare(
-        "create table if not exists users (name TEXT, age INTEGER)"
-    ).run();
-}
-
-function createUser(name: string, age: number) {
-    db.prepare(`INSERT into users (name, age) VALUES ('${name}', ${age})`).run();
-}
-
-function getUsers() {
-    return db.prepare("SELECT * FROM users").all();
-}
+const routeHandlers: Record<Route, (event: ApiEvent, ctx: ApiContext) => any> = {
+    "/user": () => userRoute,
+    "/users": () => usersRoute,
+};
