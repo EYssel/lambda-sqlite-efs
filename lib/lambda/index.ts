@@ -24,8 +24,8 @@ export const handler = async (event: ApiEvent) => {
 };
 
 const routeHandlers: Record<Route, RouteFunction> = {
-    "/user": () => userRoute,
-    "/users": () => usersRoute,
+    "/user": userRoute,
+    "/users": usersRoute,
 };
 
 type RouteFunction = (event: ApiEvent, ctx: ApiContext) => unknown;
