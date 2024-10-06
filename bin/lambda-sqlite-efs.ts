@@ -6,17 +6,6 @@ const process = require("process");
 
 const GIT_BRANCH = process.env.GIT_BRANCH;
 
-// Sample string
-let text = "This is a feat. We need to fix this. It's just a chore.";
-
-// Regular expression to match "feat", "fix", and "chore"
-let regex = /\b(feat|fix|chore)\b/g;
-
-// Replace matched words with a placeholder (e.g., "[REPLACED]")
-let result = text.replace(regex, "[REPLACED]");
-
-console.log(result); // Output: "This is a [REPLACED]. We need to [REPLACED] this. It's just a [REPLACED]."
-
 const getBranchprefix = (branchName: string) => {
     return branchName !== `master`
         ? `${branchName.replace(/\b(feat|fix|chore)\/?\b/g, "").substring(10)}-`
