@@ -17,7 +17,7 @@ export const handler = async (event: ApiEvent) => {
 
         console.log(res);
 
-        return true;
+        return res;
     } catch (e) {
         return JSON.stringify(e);
     }
