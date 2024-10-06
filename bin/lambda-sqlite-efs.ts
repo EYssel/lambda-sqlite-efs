@@ -7,7 +7,8 @@ const process = require("process");
 const GIT_BRANCH = process.env.GIT_BRANCH;
 
 const getBranchprefix = (branchName: string) => {
-    return branchName !== `master`
+    console.log("branchName", branchName);
+    return branchName && branchName !== `master`
         ? `${branchName.replace(/\b(feat|fix|chore)\/?\b/g, "").substring(10)}-`
         : "";
 };
