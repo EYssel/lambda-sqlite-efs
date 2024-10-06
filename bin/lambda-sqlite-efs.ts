@@ -6,14 +6,27 @@ const process = require("process");
 
 const GIT_BRANCH = process.env.GIT_BRANCH;
 
-const getBranchSuffix = (branchName: string) => {
-    return branchName !== `master` ? `-${branchName || "".replace("/", "_")}` : "";
+// Sample string
+let text = "This is a feat. We need to fix this. It's just a chore.";
+
+// Regular expression to match "feat", "fix", and "chore"
+let regex = /\b(feat|fix|chore)\b/g;
+
+// Replace matched words with a placeholder (e.g., "[REPLACED]")
+let result = text.replace(regex, "[REPLACED]");
+
+console.log(result); // Output: "This is a [REPLACED]. We need to [REPLACED] this. It's just a [REPLACED]."
+
+const getBranchprefix = (branchName: string) => {
+    return branchName !== `master`
+        ? `${branchName.replace(/\b(feat|fix|chore)\/?\b/g, "").substring(10)}-`
+        : "";
 };
 
 const app = new cdk.App();
 new LambdaSqliteEfsStack(
     app,
-    `LambdaSqliteEfsStack${getBranchSuffix(GIT_BRANCH)}`,
+    `${getBranchprefix(GIT_BRANCH)}LambdaSqliteEfsStack`,
     {
         /* If you don't specify 'env', this stack will be environment-agnostic.
          * Account/Region-dependent features and context lookups will not work,
