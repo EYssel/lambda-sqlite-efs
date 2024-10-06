@@ -3,7 +3,17 @@ import { ApiContext, ApiEvent } from "../common/types";
 
 export const userRoute = (event: ApiEvent, ctx: ApiContext) => {
     if (event.method === "POST") {
-        return createUser(ctx, event.data.name, event.data.age);
+        if (
+            event.data &&
+            event.data.name &&
+            typeof event.data.name === "string" &&
+            event.data.age &&
+            typeof event.data.age === "number"
+        ) {
+            return createUser(ctx, event.data.name, event.data.age);
+        } else {
+            return "Invalid input";
+        }
     }
 
     return ENDPOINT_NOT_SUPPORTED;
