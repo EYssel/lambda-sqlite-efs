@@ -1,4 +1,4 @@
-import { ENDPOINT_NOT_SUPPORTED } from "../common/constants";
+import { ENDPOINT_NOT_SUPPORTED, INVALID_INPUT } from "../common/constants";
 import { ApiContext, ApiEvent } from "../common/types";
 
 export const userRoute = (event: ApiEvent, ctx: ApiContext) => {
@@ -12,7 +12,7 @@ export const userRoute = (event: ApiEvent, ctx: ApiContext) => {
         ) {
             return createUser(ctx, event.data.name, event.data.age);
         } else {
-            return "Invalid input";
+            return INVALID_INPUT;
         }
     }
 
